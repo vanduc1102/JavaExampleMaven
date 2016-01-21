@@ -18,7 +18,8 @@ public class VelocityTest
         VelocityEngine ve = new VelocityEngine();
         ve.init();
         /*  next, get the Template  */
-        Template t = ve.getTemplate( "helloworld.vm" );
+//        Template t = ve.getTemplate( "helloworld.vm" );
+        Template t = ve.getTemplate( "helloworld.html" );
         /*  create a context and add data */
         VelocityContext context = new VelocityContext();
         context.put("name", "World");
