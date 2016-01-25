@@ -8,7 +8,9 @@ package my.example.collection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 import org.apache.commons.collections.CollectionUtils;
@@ -51,10 +53,20 @@ public class CollectionTest {
         list1.add(new Person(2, "Son Dang", "Tan Binh"));
         list1.add(new Person(3, "Hai Dang", "Dist 7"));
         list1.add(new Person(2, "Son Dang", "Tan Binh"));
-        Set<Person> setOfPerson = new TreeSet<>(new PersonNameComparable());
+        Set<Person> setOfPerson = new TreeSet<>(PERSON_COMPARE_BY_NAME);
         setOfPerson.addAll(list1);
         list1.clear();
         list1 = (List<Person>)(Object)Arrays.asList(setOfPerson.toArray());
         System.out.println("Remove duplicated by name : "+ list1);
     }
+    
+     private static final Comparator<Person> PERSON_COMPARE_BY_NAME =
+       new Comparator() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                Person p1 = (Person) o1;
+                Person p2 = (Person) o2;
+                 return p1.getName().compareTo(p2.getName());
+            }
+        };  
 }
