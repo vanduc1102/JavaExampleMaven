@@ -12,7 +12,7 @@ import java.util.Date;
  * @author ducnguyen
  */
 public class Person {
-    private int id;
+    private Integer id;
     private String name;
     private String address;
     private Date birtDate;
@@ -21,7 +21,7 @@ public class Person {
     
     }
     
-    public Person(int id, String name, String address) {
+    public Person(Integer id, String name, String address) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -30,14 +30,14 @@ public class Person {
     /**
      * @return the id
      */
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
