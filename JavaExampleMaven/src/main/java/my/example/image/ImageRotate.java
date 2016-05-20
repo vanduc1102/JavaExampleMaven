@@ -36,14 +36,14 @@ public class ImageRotate {
             transform.rotate(Math.toRadians(180),(double) bufferedImage.getWidth()/2,(double) bufferedImage.getHeight()/2);
             AffineTransformOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_BILINEAR);
             bufferedImage = op.filter(bufferedImage, null);
-            File outputfile = new File("saved.png");
+            File outputfile = new File("./target/saved.png");
             ImageIO.write(bufferedImage, "png", outputfile);
         } catch (IOException ex) {
         }
         return 2;
     }
     public static void main(String[] args) {
-        String image = "C:\\Users\\nvduc\\Pictures\\EmployeeList\\ThuThao\\75347348-26137anh14.jpg";
+        String image = "./src/main/resources/anh14.jpg";
         System.out.println("getImageRatio "+getImageRatio(image));
         rotateImage180(image);
     }
