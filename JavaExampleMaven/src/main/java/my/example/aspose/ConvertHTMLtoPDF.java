@@ -1,5 +1,7 @@
 package my.example.aspose;
 
+import com.aspose.pdf.Document;
+import com.aspose.pdf.HtmlLoadOptions;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -20,8 +22,8 @@ public class ConvertHTMLtoPDF {
 //        String basePath = "./src/main/resources/email-hule.html";
 //        String basePath = "./src/main/resources/email-inlined.html";
         String basePath = "./src/main/resources/simple.html";
-        com.aspose.pdf.HtmlLoadOptions htmloptions = new com.aspose.pdf.HtmlLoadOptions(basePath);
-        com.aspose.pdf.Document doc = new com.aspose.pdf.Document(basePath, htmloptions);
+        HtmlLoadOptions htmloptions = new HtmlLoadOptions(basePath);
+        Document doc = new Document(basePath, htmloptions);
         doc.save("./target/hele.pdf");
     }
 }
