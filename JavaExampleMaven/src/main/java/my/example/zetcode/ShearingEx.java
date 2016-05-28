@@ -1,4 +1,4 @@
-package com.zetcode;
+package my.example.zetcode;
 
 import java.awt.Color;
 import java.awt.EventQueue;

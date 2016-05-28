@@ -69,7 +69,7 @@ public class SampleRotation {
 
         public RotationPane() {
             try {
-                img = ImageIO.read(new File("C:\\Users\\nvduc\\Pictures\\EmployeeList\\ThuThao\\75347348-26137anh14.jpg"));
+                img = ImageIO.read(new File("./src/main/resources/anh14.jpg"));
                 BufferedImage scaled = new BufferedImage(img.getWidth() / 2, img.getHeight() / 2, BufferedImage.TYPE_INT_ARGB);
                 Graphics2D g2d = scaled.createGraphics();
                 g2d.setTransform(AffineTransform.getScaleInstance(0.5d, 0.5d));
