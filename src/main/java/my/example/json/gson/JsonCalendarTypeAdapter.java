@@ -1,4 +1,8 @@
-package my.example.json.gson;
+package my.example.java.json.adapter;
+
+import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -7,17 +11,22 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import java.lang.reflect.Type;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.Arrays;
+import java.util.Date;
 
 public class JsonCalendarTypeAdapter implements JsonDeserializer<Calendar>, JsonSerializer<Calendar> {
+    
+    // Example: 2016-06-03T15:55:36+0700
+    // This is not really ISO8601, use it for backward compatibility
+    private static final String SELIALIZE_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZ";
 
-    //ISO8601 long
-    private static final String DATE_FORMAT_ISO_8601 = "yyyy-MM-dd'T'HH:mm:ssZ";
-    //ISO8601 timezone
-    private static final String DATE_FORMAT_ISO_8601_TIMEZONE = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+    private static final String[] DESERIALIZE_DATE_FORMAT = new String[]{
+        "yyyy-MM-dd'T'HH:mm:ssX",//ISO8601 long
+        "yyyy-MM-dd'T'HH:mm:ss.SSSX",//ISO8601 timezone
+        "dd.MM.yyyy"
+        //Add more at bottom
+    };
 
     public JsonCalendarTypeAdapter() {
     }
@@ -37,21 +46,17 @@ public class JsonCalendarTypeAdapter implements JsonDeserializer<Calendar>, Json
     public Calendar deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
             throws JsonParseException {
         Calendar cal = Calendar.getInstance();
-        String jsonString = json.getAsJsonPrimitive().getAsString();
-        SimpleDateFormat sdf;
-        try {
-            sdf = new SimpleDateFormat(DATE_FORMAT_ISO_8601);
-            cal.setTime(sdf.parse(jsonString));
-            return cal;
-        } catch (ParseException e) {
+        for (String format : DESERIALIZE_DATE_FORMAT) {
             try {
-                sdf = new SimpleDateFormat(DATE_FORMAT_ISO_8601_TIMEZONE);
-                cal.setTime(sdf.parse(jsonString));
+                Date date = new SimpleDateFormat(format).parse(json.getAsString());
+                cal.setTime(date);
                 return cal;
-            } catch (ParseException e1) {
-                throw new JsonParseException(e1);
+            } catch (ParseException e) {
+                
             }
         }
+        throw new JsonParseException("Unparseable date: \"" + json.getAsString()
+                + "\". Supported formats: " + Arrays.toString(DESERIALIZE_DATE_FORMAT));
     }
 
     /**
@@ -65,7 +70,8 @@ public class JsonCalendarTypeAdapter implements JsonDeserializer<Calendar>, Json
      */
     @Override
     public JsonElement serialize(Calendar calendar, Type typeOfT, JsonSerializationContext context) {
-        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_ISO_8601);
+        SimpleDateFormat sdf = new SimpleDateFormat(SELIALIZE_DATE_FORMAT);
         return new JsonPrimitive(sdf.format(calendar.getTime()));
     }
+
 }

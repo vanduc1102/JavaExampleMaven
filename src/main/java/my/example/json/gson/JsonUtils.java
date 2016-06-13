@@ -1,4 +1,6 @@
-package my.example.json.gson;
+package my.example.java.json;
+
+import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -6,15 +8,21 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
-import java.util.Map;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import my.example.java.json.adapter.JsonCalendarTypeAdapter;
+import my.example.java.json.adapter.JsonDateTypeAdapter;
+import my.example.java.json.adapter.JsonDoubleTypeAdapter;
+import my.example.java.json.adapter.JsonFloatTypeAdapter;
+import my.example.java.json.adapter.JsonIntegerTypeAdapter;
+
 
 public final class JsonUtils {
 
     private static final String DATE_FORMAT_ISO_8601 = "yyyy-MM-dd'T'HH:mm:ss";
     private static final Gson gson = new Gson();
+
     private JsonUtils() {
     }
 
@@ -69,8 +77,8 @@ public final class JsonUtils {
     @SuppressWarnings("unchecked")
     public static <T> T fromJson(String json, Class<T> clazz, Map<Class, Object> adapters)
             throws JsonSyntaxException {
-        Gson gsonAdpated = buildGsonWithAdapters(adapters);
-        return gsonAdpated.fromJson(json, clazz);
+        Gson gsonAdapted = buildGsonWithAdapters(adapters);
+        return gsonAdapted.fromJson(json, clazz);
     }
 
     /**
@@ -89,22 +97,37 @@ public final class JsonUtils {
         }
         return builder.create();
     }
+
     /**
-     * Method create GSON object with date format <b>yyyy-MM-dd'T'HH:mm:ss</b>.<br />
-     * There are three adapter types created: Date, Calendar, GregorianCalendar.
-     * @return 
+     * Builds Gson object based on the given adapters
+     *
+     * @param clazz
+     * @param adapter
+     * @return Gson object
+     */
+    @SuppressWarnings("unchecked")
+    public static Gson buildGsonWithAdapter(Class clazz, Object adapter) {
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(clazz, adapter);
+        return builder.create();
+    }
+
+    /**
+     * Method create GSON object with date format
+     * @return
      */
     public static Gson createGson() {
         GsonBuilder builder = new GsonBuilder();
         builder.setDateFormat(DATE_FORMAT_ISO_8601);
-
-        // Register an adapter to manage the date types as long values
-        // For example : "timeStamp":1391158848000         
-        builder.registerTypeAdapter(Date.class, new JsonCalendarTypeAdapter());
+        
+        builder.registerTypeAdapter(Date.class, new JsonDateTypeAdapter());
 
         // Register an adapter for calendar types
         builder.registerTypeAdapter(Calendar.class, new JsonCalendarTypeAdapter());
         builder.registerTypeAdapter(GregorianCalendar.class, new JsonCalendarTypeAdapter());
+        builder.registerTypeAdapter(Double.class, new JsonDoubleTypeAdapter());
+        builder.registerTypeAdapter(Integer.class, new JsonIntegerTypeAdapter());
+        builder.registerTypeAdapter(Float.class, new JsonFloatTypeAdapter());
 
         return builder.create();
     }
