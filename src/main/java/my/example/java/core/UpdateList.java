@@ -1,5 +1,6 @@
 package my.example.java.core;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -25,6 +26,7 @@ public class UpdateList {
         System.out.println("oldList : "+ oldList.toString());
         System.out.println("newList : "+ newList.toString());
         System.out.println("updatedList : "+ updateOldList(oldList,newList).toString());
+        System.out.println("StandarCharsets : "+ StandardCharsets.UTF_8);
     }
     public static List<Employee> updateOldList(List<Employee> oldList, List<Employee> newList){
         for(Employee oldItem : oldList){
