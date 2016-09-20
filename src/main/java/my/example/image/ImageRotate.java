@@ -42,6 +42,7 @@ public class ImageRotate {
         }
         return 2;
     }
+    
     public static void main(String[] args) {
         String image = "./src/main/resources/anh14.jpg";
         System.out.println("getImageRatio "+getImageRatio(image));
