@@ -20,7 +20,6 @@ public class AddBackground {
     }
 
     public static String addBackgroundToImageKeepRatio(String backgroundPATH, String imagePath) {
-        System.out.println("my.example.image.AddBackground.addBackgroundToImageKeepRatio()");
         try {
             File resultImagePath = Paths.get("target", "temp.png").toFile();
             Image backgroundImage = ImageIO.read(new File(backgroundPATH));
