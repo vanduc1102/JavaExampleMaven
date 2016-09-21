@@ -3,6 +3,7 @@ package my.example.java.date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -27,6 +28,19 @@ public class DateFormat {
         System.out.println("Date to String : "+dateFormat1.format(new Date()));
         Date date1 =dateFormat1.parse(dateStr);
         System.out.println("Date : "+date1);
+        
+        String stringToInsert = "123412341234";
+        String originalString = "Insert a .String within .the parentheses .csv";
+        int index = originalString.lastIndexOf(".");
+ 
+        // Technique #1: Using StringUtils.overlay
+        String newString = StringUtils.overlay(originalString, stringToInsert, index, index);
+        System.out.println(newString);
+ 
+        // Technique #2: Using substring
+        String newString2 = originalString.substring(0, index) + stringToInsert
+                + originalString.substring(index, originalString.length());
+        System.out.println(newString2);
         
     }
 }

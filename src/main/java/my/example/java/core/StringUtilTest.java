@@ -16,5 +16,6 @@ public class StringUtilTest {
         System.out.println("String right pad : " + StringUtils.substring(a, 0,50));
         System.out.println("String substr  : " + StringUtils.substring(b, 0,50));
         System.out.println("ccccccccc : "+c);
+        System.out.println("my.example.java.core.StringUtilTest.main()" +(float) 5/ 6);
     }
 }
