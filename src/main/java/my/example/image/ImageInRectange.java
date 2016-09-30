@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
 public class ImageInRectange {
 
     public static void main(String[] args) throws IOException {
-        createImageInRectagle(512, 1024, new File("./src/main/resources/chelsea.png"));
+        createImageInRectagle(512, 256, new File("./src/main/resources/chelsea.png"));
     }
 
     public static File createImageInRectagle(int width, int height, File image) throws IOException {
@@ -42,7 +42,7 @@ public class ImageInRectange {
                     p.x = Math.abs((width - newWidth) / 2);
                     p.y = 0;
                 } else {
-                    p.x = 0;
+                    p.x = Math.abs((width - newWidth) / 2 );
                     p.y = Math.abs((height - minEdge) / 2);
                 }
             } else {
@@ -51,7 +51,7 @@ public class ImageInRectange {
                 bufferedImage = scale(bufferedImage, minEdge, newHeight);
                 if (minEdge == height) {
                     p.x = Math.abs((width - minEdge) / 2);
-                    p.y = 0;
+                    p.y = Math.abs((height - newHeight) / 2);
                 } else {
                     p.x = 0;
                     p.y = Math.abs((height - newHeight) / 2);

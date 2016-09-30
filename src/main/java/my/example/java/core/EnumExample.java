@@ -1,5 +1,7 @@
 package my.example.java.core;
 
+import java.util.Objects;
+
 /**
  *
  * @author nvduc
@@ -8,7 +10,7 @@ public class EnumExample {
 
     public static void main(String[] args) {
         System.out.println(" $$$$$$$$$$ "+ EnergyTypeEnum.ELECTRICITE.getTypeAsString());
-        System.out.println("========== "+ EnergyTypeEnum.valueOf("1"));
+        //System.out.println("========== "+ EnergyTypeEnum.valueOf("1"));
     }
 
     public enum EnergyTypeEnum {
