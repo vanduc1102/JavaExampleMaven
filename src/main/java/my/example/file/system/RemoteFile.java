@@ -24,6 +24,8 @@ public class RemoteFile {
         
         System.out.println("localFolder : "+isRemoteFolder(localFolder));
         System.out.println("remoteFolder : "+isRemoteFolder(remoteFolder));
+        boolean aaa = Boolean.parseBoolean("true");
+        System.out.println("my.example.file.system.RemoteFile.main() : "+aaa);
 
     }
 
