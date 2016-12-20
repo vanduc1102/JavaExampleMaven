@@ -4,7 +4,12 @@ package my.example.velocity;
  *
  * @author nvduc
  */
+import java.io.File;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -27,6 +32,8 @@ public class VelocityTest
         StringWriter writer = new StringWriter();
         t.merge( context, writer );
         /* show the World */
-        System.out.println( writer.toString() );     
+        System.out.println( writer.toString() );
+        Path resultPath = Paths.get("target", "helloworld-output.html");
+        File output = Files.write(resultPath, writer.getBuffer().toString().getBytes()).toFile();
     }
 }

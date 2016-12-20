@@ -15,26 +15,19 @@ public class EnumExample {
 
     public enum EnergyTypeEnum {
 
-        ELECTRICITE("1"), MAZOUT("2"), GAZ("3");
+        ELECTRICITE(1), MAZOUT(2), GAZ(3);
 
-        private final String text;
+        private final int text;
 
         /**
          * @param text
          */
-        private EnergyTypeEnum(final String text) {
+        private EnergyTypeEnum(final int text) {
             this.text = text;
         }
 
-        /* (non-Javadoc)
-         * @see java.lang.Enum#toString()
-         */
-        @Override
-        public String toString() {
-            return text;
-        }
 
-        public String getTypeAsString() {
+        public int getTypeAsString() {
             return text;
         }
 

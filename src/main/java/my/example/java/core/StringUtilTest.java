@@ -17,5 +17,7 @@ public class StringUtilTest {
         System.out.println("String substr  : " + StringUtils.substring(b, 0,50));
         System.out.println("ccccccccc : "+c);
         System.out.println("my.example.java.core.StringUtilTest.main()" +(float) 5/ 6);
+        String response ="U=hrcadmin";
+        System.out.println("my.example.java.core.StringUtilTest.main() :"+ response.substring(response.indexOf("U=")+"U=".length()));
     }
 }
