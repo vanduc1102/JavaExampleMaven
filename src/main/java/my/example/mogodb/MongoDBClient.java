@@ -11,11 +11,12 @@ import java.util.Arrays;
  * @author nvduc
  */
 public class MongoDBClient {
-    static String host = "vntils11";
+    static String host = "127.0.0.1";
     static int port = 27017;
+    static char[] password = "changeMe".toCharArray();
     public static void main(String[] args) throws UnknownHostException {
-        MongoClient mongoClient = new MongoClient(new ServerAddress(host,port),Arrays.asList(MongoCredential.createCredential("admin", "demo", "123456".toCharArray())));
-        mongoClient.getDB("demo");
+        MongoClient mongoClient = new MongoClient(new ServerAddress(host,port),Arrays.asList(MongoCredential.createScramSha1Credential("root", "ductest", password)));
+        mongoClient.getDB("ductest");
         System.out.println("my.example.mogodb.MongoDBClient.main()" + mongoClient.getDatabaseNames());
     }
 }
