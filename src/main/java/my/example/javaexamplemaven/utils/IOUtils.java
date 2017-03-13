@@ -5,18 +5,21 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URLConnection;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 import javax.imageio.ImageIO;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.bouncycastle.util.encoders.Base64;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -24,7 +27,9 @@ import org.bouncycastle.util.encoders.Base64;
  */
 public class IOUtils {
 
+    private final static org.slf4j.Logger log = LoggerFactory.getLogger(IOUtils.class);
     private final static String JBOSS_TEMP_FOLDER_PATH = "jboss.server.temp.dir";
+    private static final String PDF_EXTENSION = "pdf";
 
     private IOUtils() {
     }
@@ -87,15 +92,19 @@ public class IOUtils {
             fos = new FileOutputStream(new File(fileName));
             fos.write(bytes);
         } catch (IOException ex) {
+            log.debug("writeToDict", ex);
         } finally {
             closeStream(fos);
         }
 
     }
 
-    public static String writeImageToDisk(String imageBase64, String fileName) {
-        byte dearr[] = Base64.decode(imageBase64);
+    public static String writeImageToDisk(String imageBase64) {
         String systemTempPath = System.getProperty(JBOSS_TEMP_FOLDER_PATH);
+
+        byte dearr[] = Base64.decode(imageBase64);
+        String fileType = getFileMimeType(dearr);
+        String fileName = IOUtils.getRandomString().concat(".").concat(fileType);
         File file = new File(systemTempPath, fileName);
         FileOutputStream fos = null;
         try {
@@ -103,10 +112,33 @@ public class IOUtils {
             fos.write(dearr);
             return file.getAbsolutePath();
         } catch (IOException ex) {
+            log.debug("writeImageToDisk", ex);
         } finally {
             closeStream(fos);
         }
-        return null;
+        return file.getAbsolutePath();
+    }
+
+    /**
+     * Search file extension, if not found return "tmp"
+     *
+     * @param base64
+     * @return
+     */
+    private static String getFileMimeType(byte[] byteArr) {
+        InputStream is = new ByteArrayInputStream(byteArr);
+        String mimeType;
+        String fileExtension;
+        try {
+            mimeType = URLConnection.guessContentTypeFromStream(is); //mimeType is something like "image/jpeg"
+            String delimiter = "[/]";
+            String[] tokens = mimeType.split(delimiter);
+            fileExtension = tokens[1];
+        } catch (IOException ioException) {
+            log.debug("getFileMimeType ", ioException);
+            return "tmp";
+        }
+        return fileExtension;
     }
 
     public static String writeToDisk(InputStream inputStream, String fileName) throws IOException {
@@ -124,6 +156,7 @@ public class IOUtils {
             }
             return outputFile.getAbsolutePath();
         } catch (IOException ex) {
+            log.error("writeToDisk : ", ex);
             throw new IOException(ex.getMessage());
         } finally {
             closeStream(inputStream);
@@ -145,6 +178,7 @@ public class IOUtils {
             try {
                 is.close();
             } catch (IOException e) {
+                log.error("failure", e);
             }
         }
     }
@@ -163,6 +197,7 @@ public class IOUtils {
                 return file.delete();
             }
         } catch (Exception ex) {
+            log.debug("Can not remove file " + fileName + " ", ex);
         }
         return false;
     }
@@ -176,6 +211,7 @@ public class IOUtils {
                 return file.delete();
             }
         } catch (Exception ex) {
+            log.debug("Can not remove file " + file.getAbsolutePath() + " ", ex);
         }
         return false;
     }
@@ -202,15 +238,22 @@ public class IOUtils {
      * @return
      */
     public static String getTemporyFilePath(String prefixName, String extention) {
+        return getTemporyFile(prefixName, extention).getAbsolutePath();
+    }
+
+    public static File getTemporyFile(String prefixName, String extention) {
         String systemTempPath = System.getProperty(JBOSS_TEMP_FOLDER_PATH);
-        File outputFile = new File(systemTempPath, prefixName + getRandomString() + extention);
-        return outputFile.getAbsolutePath();
+        return new File(systemTempPath, prefixName + getRandomString() + extention);
     }
 
     public static String getTemporyFilePath() {
         String systemTempPath = System.getProperty(JBOSS_TEMP_FOLDER_PATH);
         File outputFile = new File(systemTempPath, getRandomString() + ".tmp");
         return outputFile.getAbsolutePath();
+    }
+
+    public static String getTemporyFilePath(String postFix) {
+        return getTemporyFilePath(StringUtils.EMPTY, postFix);
     }
 
     public static File fileWithoutDuplicateName(String exportFolder, String fileName) {
@@ -232,15 +275,13 @@ public class IOUtils {
     /**
      * Read the file and calculate the SHA-1 checksum
      *
-     * @param file the file to read
+     * @param input
      * @return the hex representation of the SHA-1 using uppercase chars
      */
-    public static String createSHA1(File file) {
-        InputStream input = null;
+    public static String createSHA1(InputStream input) {
         try {
 
             MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
-            input = new FileInputStream(file);
             byte[] buffer = new byte[8192];
             int len = input.read(buffer);
             while (len != -1) {
@@ -249,9 +290,22 @@ public class IOUtils {
             }
             return new HexBinaryAdapter().marshal(sha1.digest());
         } catch (NoSuchAlgorithmException | IOException ex) {
+            log.debug("createSHA1 ", ex);
         } finally {
             closeStream(input);
         }
         return "";
+    }
+
+    public static Boolean isPdfFile(File file) {
+
+        String fileExtension = FilenameUtils.getExtension(file.getName());
+        return file.isFile() && PDF_EXTENSION.equalsIgnoreCase(fileExtension);
+
+    }
+
+    public static String encodeFileToBase64Binary(File file) throws IOException {
+        return Base64.toBase64String(FileUtils.readFileToByteArray(file));
+
     }
 }

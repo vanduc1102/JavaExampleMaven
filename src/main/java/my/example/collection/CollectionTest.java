@@ -21,6 +21,7 @@ import java.util.TreeSet;
 public class CollectionTest {
 
     public static void main(String[] args) {
+        System.out.println(Math.rint((double)('y' + 9 * 82))); 
         System.out.println("---------------my.example.collection.CollectionTest.main()--------------");
 
         List<Person> list2 = new ArrayList<>();

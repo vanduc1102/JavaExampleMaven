@@ -1,5 +1,6 @@
 package my.example.java.core;
 
+import java.util.Arrays;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -19,5 +20,7 @@ public class StringUtilTest {
         System.out.println("my.example.java.core.StringUtilTest.main()" +(float) 5/ 6);
         String response ="U=hrcadmin";
         System.out.println("my.example.java.core.StringUtilTest.main() :"+ response.substring(response.indexOf("U=")+"U=".length()));
+        System.out.println("my.example.java.core.StringUtilTest.main() "+ Arrays.toString("aaa@aaa".split("@")));
+        System.out.println("my.example.java.core.StringUtilTest.main() "+ Arrays.toString("aaaaaa".split("@")));
     }
 }
