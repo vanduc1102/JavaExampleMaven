@@ -1,11 +1,11 @@
 package my.example.password;
 
 import java.security.SecureRandom;
+import java.util.Base64;
 import java.util.Random;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
-import org.apache.commons.net.util.Base64;
 
 
 /**
@@ -63,7 +63,8 @@ public class PasswordUtil {
     public static String getSaltedHash(String subject) throws Exception {
         byte[] salt = SecureRandom.getInstance("SHA1PRNG").generateSeed(saltLen);
         // store the salt with the password
-        return Base64.encodeBase64String(salt) + "$" + hash(subject, salt);
+        return Base64.getEncoder().encodeToString(salt)+ "$" + hash(subject, salt);
+//        return Base64.encodeBase64String(salt) + "$" + hash(subject, salt);
     }
 
     /**
@@ -81,7 +82,7 @@ public class PasswordUtil {
             throw new IllegalStateException(
                     "The stored subject have the form 'salt$hash'");
         }
-        String hashOfInput = hash(subject, Base64.decodeBase64(saltAndPass[0]));
+        String hashOfInput = hash(subject, Base64.getDecoder().decode(saltAndPass[0]));
         return hashOfInput.equals(saltAndPass[1]);
     }
 
@@ -95,7 +96,7 @@ public class PasswordUtil {
         SecretKey key = f.generateSecret(new PBEKeySpec(
                 subject.toCharArray(), salt, iterations, desiredKeyLen)
         );
-        return Base64.encodeBase64String(key.getEncoded());
+        return Base64.getEncoder().encodeToString(key.getEncoded());
     }
 
 }
