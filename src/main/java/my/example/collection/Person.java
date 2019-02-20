@@ -7,85 +7,69 @@ package my.example.collection;
 
 import java.util.Date;
 
-/**
- *
- * @author ducnguyen
- */
+/** @author ducnguyen */
 public class Person {
-    private Integer id;
-    private String name;
-    private String address;
-    private Date birtDate;
-    
-    public Person() {
-    
-    }
-    
-    public Person(Integer id, String name, String address) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-    }
+  private Integer id;
+  private String name;
+  private String address;
+  private Date birtDate;
 
-    /**
-     * @return the id
-     */
-    public Integer getId() {
-        return id;
-    }
+  public Person() {}
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  public Person(Integer id, String name, String address) {
+    this.id = id;
+    this.name = name;
+    this.address = address;
+  }
 
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
+  /** @return the id */
+  public Integer getId() {
+    return id;
+  }
 
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
+  /** @param id the id to set */
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    /**
-     * @return the address
-     */
-    public String getAddress() {
-        return address;
-    }
+  /** @return the name */
+  public String getName() {
+    return name;
+  }
 
-    /**
-     * @param address the address to set
-     */
-    public void setAddress(String address) {
-        this.address = address;
-    }
+  /** @param name the name to set */
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    /**
-     * @return the birtDate
-     */
-    public Date getBirtDate() {
-        return birtDate;
-    }
+  /** @return the address */
+  public String getAddress() {
+    return address;
+  }
 
-    /**
-     * @param birtDate the birtDate to set
-     */
-    public void setBirtDate(Date birtDate) {
-        this.birtDate = birtDate;
-    }
+  /** @param address the address to set */
+  public void setAddress(String address) {
+    this.address = address;
+  }
 
-    @Override
-    public String toString() {
-        return "Person[id="+this.id+";name="+this.name+";address="+this.address+"]"; //To change body of generated methods, choose Tools | Templates.
-    }
-    
+  /** @return the birtDate */
+  public Date getBirtDate() {
+    return birtDate;
+  }
+
+  /** @param birtDate the birtDate to set */
+  public void setBirtDate(Date birtDate) {
+    this.birtDate = birtDate;
+  }
+
+  @Override
+  public String toString() {
+    return "Person[id="
+        + this.id
+        + ";name="
+        + this.name
+        + ";address="
+        + this.address
+        + "]"; // To change body of generated methods, choose Tools | Templates.
+  }
 }

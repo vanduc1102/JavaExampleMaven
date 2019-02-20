@@ -6,17 +6,18 @@ import com.mongodb.ServerAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 
-/**
- *
- * @author nvduc
- */
+/** @author nvduc */
 public class MongoDBClient {
-    static String host = "127.0.0.1";
-    static int port = 27017;
-    static char[] password = "changeMe".toCharArray();
-    public static void main(String[] args) throws UnknownHostException {
-        MongoClient mongoClient = new MongoClient(new ServerAddress(host,port),Arrays.asList(MongoCredential.createScramSha1Credential("root", "ductest", password)));
-        mongoClient.getDB("ductest");
-        System.out.println("my.example.mogodb.MongoDBClient.main()" + mongoClient.getDatabaseNames());
-    }
+  static String host = "127.0.0.1";
+  static int port = 27017;
+  static char[] password = "changeMe".toCharArray();
+
+  public static void main(String[] args) throws UnknownHostException {
+    MongoClient mongoClient =
+        new MongoClient(
+            new ServerAddress(host, port),
+            Arrays.asList(MongoCredential.createScramSha1Credential("root", "ductest", password)));
+    mongoClient.getDB("ductest");
+    System.out.println("my.example.mogodb.MongoDBClient.main()" + mongoClient.getDatabaseNames());
+  }
 }

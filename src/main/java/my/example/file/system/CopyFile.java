@@ -10,13 +10,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-/**
- *
- * @author nvduc
- */
+/** @author nvduc */
 public class CopyFile {
-    public static void main(String[] args) throws IOException {
-        Path path = Paths.get("D:\\GOV_IVY_SETUP.docx");
-        Files.copy(path, Paths.get("D:\\GOV_IVY_SETUP.docx22"));
-    }
+  public static void main(String[] args) throws IOException {
+    Path path = Paths.get("D:\\GOV_IVY_SETUP.docx");
+    Files.copy(path, Paths.get("D:\\GOV_IVY_SETUP.docx22"));
+  }
 }

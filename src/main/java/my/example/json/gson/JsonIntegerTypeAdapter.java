@@ -1,4 +1,4 @@
-package my.example.java.json.adapter;
+package my.example.json.gson;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -10,19 +10,22 @@ import com.google.gson.JsonSerializer;
 
 public class JsonIntegerTypeAdapter implements JsonDeserializer<Integer>, JsonSerializer<Integer> {
 
-    @Override
-    public Integer deserialize(JsonElement json, java.lang.reflect.Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-        Integer output;
-        try {
-            output = json.getAsInt();
-        } catch (NumberFormatException e) {
-            output = null;
-        }
-        return output;
+  @Override
+  public Integer deserialize(
+      JsonElement json, java.lang.reflect.Type typeOfT, JsonDeserializationContext context)
+      throws JsonParseException {
+    Integer output;
+    try {
+      output = json.getAsInt();
+    } catch (NumberFormatException e) {
+      output = null;
     }
+    return output;
+  }
 
-    @Override
-    public JsonElement serialize(Integer src, java.lang.reflect.Type typeOfSrc, JsonSerializationContext context) {
-        return new JsonPrimitive(src.toString());
-    }
+  @Override
+  public JsonElement serialize(
+      Integer src, java.lang.reflect.Type typeOfSrc, JsonSerializationContext context) {
+    return new JsonPrimitive(src.toString());
+  }
 }
