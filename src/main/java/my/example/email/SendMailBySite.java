@@ -15,7 +15,6 @@ public class SendMailBySite {
 
     String to = "duc.nguyen@example.com";
 
-
     Properties props = new Properties();
     props.put("mail.smtp.host", host);
     props.put("mail.smtp.port", port);
