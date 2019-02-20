@@ -3,3 +3,6 @@
 
 
 /nbproject/
+.idea/sonarlint/
+/.idea
+/*.iml
