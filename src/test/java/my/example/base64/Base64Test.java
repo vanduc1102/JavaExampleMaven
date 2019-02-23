@@ -1,4 +1,4 @@
-package my.example.java.base64;
+package my.example.base64;
 
 import java.util.Base64;
 import org.junit.Assert;

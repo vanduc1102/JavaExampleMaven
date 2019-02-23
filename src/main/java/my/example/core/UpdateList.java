@@ -1,4 +1,4 @@
-package my.example.java.core;
+package my.example.core;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;

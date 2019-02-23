@@ -1,4 +1,4 @@
-package my.example.java.core;
+package my.example.core;
 
 import java.util.Arrays;
 import org.apache.commons.lang3.StringUtils;

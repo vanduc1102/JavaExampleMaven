@@ -1,3 +1,5 @@
+package my.example.core;
+
 import java.util.Properties;
 
 /** @author nvduc */

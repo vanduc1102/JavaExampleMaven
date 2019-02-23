@@ -30,38 +30,35 @@ public class SampleRotation {
 
   public SampleRotation() {
     EventQueue.invokeLater(
-        new Runnable() {
-          @Override
-          public void run() {
-            try {
-              UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-            } catch (ClassNotFoundException
-                | InstantiationException
-                | IllegalAccessException
-                | UnsupportedLookAndFeelException ex) {
-              ex.printStackTrace();
-            }
-
-            final RotationPane rotationPane = new RotationPane();
-            final JSlider slider = new JSlider(0, 100);
-            slider.addChangeListener(
-                new ChangeListener() {
-                  @Override
-                  public void stateChanged(ChangeEvent e) {
-                    double angle = 720d * (slider.getValue() / 100d);
-                    rotationPane.setAngle(angle);
-                  }
-                });
-            slider.setValue(0);
-
-            JFrame frame = new JFrame("Testing");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.add(rotationPane);
-            frame.add(slider, BorderLayout.SOUTH);
-            frame.pack();
-            frame.setLocationRelativeTo(null);
-            frame.setVisible(true);
+        () -> {
+          try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+          } catch (ClassNotFoundException
+              | InstantiationException
+              | IllegalAccessException
+              | UnsupportedLookAndFeelException ex) {
+            ex.printStackTrace();
           }
+
+          final RotationPane rotationPane = new RotationPane();
+          final JSlider slider = new JSlider(0, 100);
+          slider.addChangeListener(
+              new ChangeListener() {
+                @Override
+                public void stateChanged(ChangeEvent e) {
+                  double angle = 720d * (slider.getValue() / 100d);
+                  rotationPane.setAngle(angle);
+                }
+              });
+          slider.setValue(0);
+
+          JFrame frame = new JFrame("Testing");
+          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+          frame.add(rotationPane);
+          frame.add(slider, BorderLayout.SOUTH);
+          frame.pack();
+          frame.setLocationRelativeTo(null);
+          frame.setVisible(true);
         });
   }
 

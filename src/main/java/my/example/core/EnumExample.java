@@ -1,4 +1,4 @@
-package my.example.java.core;
+package my.example.core;
 
 /** @author nvduc */
 public class EnumExample {

@@ -1,4 +1,4 @@
-package my.example.java.core;
+package my.example.core;
 
 public class ZipFileApp {
   public static void main(String[] args) {
