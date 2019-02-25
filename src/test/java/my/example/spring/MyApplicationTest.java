@@ -12,7 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(value = "my.example.spring.consumer")
+@ComponentScan(value = "my.example.spring")
 public class MyApplicationTest {
 
   private AnnotationConfigApplicationContext context = null;
