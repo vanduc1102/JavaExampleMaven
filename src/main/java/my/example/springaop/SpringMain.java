@@ -8,7 +8,8 @@ public class SpringMain {
 
   public static void main(String[] args) {
     BasicConfigurator.configure();
-    ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+    ClassPathXmlApplicationContext ctx =
+        new ClassPathXmlApplicationContext("src/test/resources/spring.xml");
     System.out.println(String.format("=========>%d Start Spring DI", System.currentTimeMillis()));
     EmployeeService employeeService = ctx.getBean("employeeService", EmployeeService.class);
 

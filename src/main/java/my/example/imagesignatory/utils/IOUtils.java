@@ -95,7 +95,7 @@ public class IOUtils {
   }
 
   public static String writeImageToDisk(String imageBase64) {
-    String systemTempPath = System.getProperty(JBOSS_TEMP_FOLDER_PATH);
+    String systemTempPath = getTempFolder();
 
     byte dearr[] = Base64.decode(imageBase64);
     String fileType = getFileMimeType(dearr);
@@ -138,7 +138,7 @@ public class IOUtils {
   }
 
   public static String writeToDisk(InputStream inputStream, String fileName) throws IOException {
-    String systemTempPath = System.getProperty(JBOSS_TEMP_FOLDER_PATH);
+    String systemTempPath = getTempFolder();
     OutputStream outputStream = null;
     try {
       File outputFile = new File(systemTempPath, fileName);
@@ -177,7 +177,7 @@ public class IOUtils {
     }
   }
 
-  public static String getRandomString() {
+  private static String getRandomString() {
     return UUID.randomUUID().toString().replace("-", "");
   }
 
@@ -219,9 +219,15 @@ public class IOUtils {
   }
 
   public static String getAbsoluteFilePath(String filename) {
-    String systemTempPath = System.getProperty(JBOSS_TEMP_FOLDER_PATH);
+    String systemTempPath = getTempFolder();
     File outputFile = new File(systemTempPath, filename);
     return outputFile.getAbsolutePath();
+  }
+
+  private static String getTempFolder() {
+    return StringUtils.isNotBlank(System.getProperty(JBOSS_TEMP_FOLDER_PATH))
+        ? System.getProperty(JBOSS_TEMP_FOLDER_PATH)
+        : System.getProperty("java.io.tmpdir");
   }
 
   /**
@@ -236,12 +242,12 @@ public class IOUtils {
   }
 
   public static File getTemporyFile(String prefixName, String extention) {
-    String systemTempPath = System.getProperty(JBOSS_TEMP_FOLDER_PATH);
+    String systemTempPath = getTempFolder();
     return new File(systemTempPath, prefixName + getRandomString() + extention);
   }
 
   public static String getTemporyFilePath() {
-    String systemTempPath = System.getProperty(JBOSS_TEMP_FOLDER_PATH);
+    String systemTempPath = getTempFolder();
     File outputFile = new File(systemTempPath, getRandomString() + ".tmp");
     return outputFile.getAbsolutePath();
   }

@@ -25,7 +25,7 @@ public class ImageUtils {
 
   private ImageUtils() {}
 
-  public static BufferedImage toBufferedImage(Image img) {
+  static BufferedImage toBufferedImage(Image img) {
     if (img instanceof BufferedImage) {
       return (BufferedImage) img;
     }
@@ -40,7 +40,7 @@ public class ImageUtils {
     return bimage;
   }
 
-  public static float getImageRatio(String imagePath) {
+  static float getImageRatio(String imagePath) {
     try {
       Image iamge = ImageIO.read(new File(imagePath));
       int width = iamge.getWidth(null);
@@ -52,7 +52,7 @@ public class ImageUtils {
     return 2;
   }
 
-  public static File rotateImage(final File imagePath, int numquadrants) {
+  public static File rotateImage(File imagePath, int numquadrants) {
     try {
       BufferedImage bufferedImage = ImageIO.read(imagePath);
       bufferedImage = transform(bufferedImage, numquadrants);
@@ -65,7 +65,7 @@ public class ImageUtils {
     return null;
   }
 
-  public static String rotateImage180(final String imagePath) {
+  public static String rotateImage180(String imagePath) {
     try {
       BufferedImage bufferedImage = ImageIO.read(new File(imagePath));
       AffineTransform transform = new AffineTransform();
@@ -93,7 +93,7 @@ public class ImageUtils {
    * @param numquadrants
    * @return
    */
-  public static BufferedImage transform(BufferedImage image, int numquadrants) {
+  static BufferedImage transform(BufferedImage image, int numquadrants) {
     int w0 = image.getWidth();
     int h0 = image.getHeight();
     int w1 = w0;
@@ -292,7 +292,7 @@ public class ImageUtils {
   }
 
   public static BufferedImage createImageFromText(
-      String text, boolean isNeededBackground, final int fontSize) {
+      String text, boolean isNeededBackground, int fontSize) {
     int tempFontSize = fontSize;
     if (tempFontSize == 0) {
       tempFontSize = 13;
@@ -404,7 +404,7 @@ public class ImageUtils {
     return tempImage;
   }
 
-  public static BufferedImage scale(BufferedImage imgb, int newWidth, int newHeight) {
+  private static BufferedImage scale(BufferedImage imgb, int newWidth, int newHeight) {
     Image image;
     image = imgb.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
     return toBufferedImage(image);
@@ -418,7 +418,7 @@ public class ImageUtils {
     return imageFile;
   }
 
-  public static BufferedImage rotateImageBuffered(BufferedImage image, double angle) {
+  private static BufferedImage rotateImageBuffered(BufferedImage image, double angle) {
     double rads = Math.toRadians(angle);
     double sin = Math.abs(Math.sin(rads)), cos = Math.abs(Math.cos(rads));
     int w = image.getWidth();
